@@ -1,7 +1,9 @@
 #!/bin/env node
 //  OpenShift sample Node application
-var express = require('express');
-var fs      = require('fs');
+var express     = require('express');
+var fs          = require('fs');
+var contact     = require("./contact.js");
+var bodyParser  = require("body-parser");
 
 
 /**
@@ -106,6 +108,13 @@ var SampleApp = function() {
         };
     };
 
+    self.createApi = function()
+    {
+        self.api = { };
+
+        self.api['/contact'] = contact.sendMail;
+    };
+
 
     /**
      *  Initialize the server (express) and create the routes and register
@@ -113,12 +122,25 @@ var SampleApp = function() {
      */
     self.initializeServer = function() {
         self.createRoutes();
-        self.app = express.createServer();
+        self.createApi();
+        self.app = express();
 
-        //  Add handlers for the app (from the routes).
+        // Setup middlewares before defining any route.
+        self.setupMiddlewares();
+
+        //  Add GET handlers for the app (from the routes).
         for (var r in self.routes) {
             self.app.get(r, self.routes[r]);
         }
+
+        //  Add POST handlers for the app (from the api).
+        for (var r in self.api) {
+            self.app.post(r, self.api[r]);
+        }
+    };
+
+    self.setupMiddlewares = function() {
+        self.app.use(bodyParser.json());
     };
 
 
@@ -156,4 +178,3 @@ var SampleApp = function() {
 var zapp = new SampleApp();
 zapp.initialize();
 zapp.start();
-
