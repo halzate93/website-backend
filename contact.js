@@ -39,7 +39,7 @@ exports.sendMail = function(req, res) {
         }else{
             result['type'] = "Success";
             result['message'] = "Thanks!, I'll get back to you soon.";
-            console.log('Message sent: ' + info.response);
+            console.log('Message sent: ' + info.message);
         }
 
         res.json(result);
