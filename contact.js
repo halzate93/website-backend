@@ -11,8 +11,8 @@ var mailgun = require('nodemailer-mailgun-transport');
 var transport = nodemailer.createTransport(
         mailgun({
             auth: {
-                api_key: '',
-                domain: ''
+                api_key: 'key-30f61ec51f360f792fe94a2a2a63eeb9',
+                domain: 'mg.hectoralzate.co'
             }
         })
     );
@@ -22,7 +22,7 @@ exports.sendMail = function(req, res) {
 
     var mailOptions = {
         from: fullName + " <" + req.body.email + ">",
-        to: '',
+        to: 'halzate93@gmail.com',
         subject: "Contact from website",
         text: req.body.message + '\n' + req.body.phone,
         html: '<p>' + req.body.message + '</p>' +
