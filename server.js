@@ -141,7 +141,7 @@ var SampleApp = function() {
 
     self.setupMiddlewares = function() {
         self.app.use(bodyParser.json());
-        self.app.use(bodyParser.urlEncoded({'extended': true}));
+        self.app.use(bodyParser.urlencoded({'extended': true}));
         self.app.use(function(req, res, next) {
           res.header("Access-Control-Allow-Origin", "http://hectoralzate.co");
           res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
