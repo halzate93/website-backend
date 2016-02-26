@@ -111,8 +111,6 @@ var SampleApp = function() {
     self.createApi = function()
     {
         self.api = { };
-
-        self.api['/contact'] = contact.sendMail;
     };
 
 
